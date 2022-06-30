@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品展示界面</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+          integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="col-sm-9 col-sm-offset-3 col-md-offset-2 main">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        修改账号
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="input-box">
+                            <label for="name">商品名字</label>
+                            <input type="text" name="name" id="name" placeholder="请输入商品名字">
+                        </div>
+                        <div class="input-box">
+                            <label for="stock">库存</label>
+                            <input type="text" name="stock" id="stock" placeholder="请输入库存">
+                        </div>
+                        <div class="input-box">
+                            <label for="price">价格</label>
+                            <input type="text" name="price" id="price" placeholder="请输入价格">
+                        </div>
+                        <div class="input-box">
+                            <label for="sales">销量</label>
+                            <input type="text" name="sales" id="sales" placeholder="销量">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">关闭
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                提交更改
+                            </button>
+                        </div>
+                    </form>
+
+                    按下 ESC 按钮退出。
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        修改账号
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/shopmod/{{ id }}" method="post">
+                        {% csrf_token %}
+                        <div class="input-box">
+                            <label for="id">编号</label>
+                            <input type="text" name="id" id="id" placeholder="请输入商品编号">
+                        </div>
+                        <div class="input-box">
+                            <label for="name">商品名字</label>
+                            <input type="text" name="name" id="name" placeholder="请输入商品名字">
+                        </div>
+                        <div class="input-box">
+                            <label for="stock">库存</label>
+                            <input type="text" name="stock" id="stock" placeholder="请输入库存">
+                        </div>
+                        <div class="input-box">
+                            <label for="price">价格</label>
+                            <input type="text" name="price" id="price" placeholder="请输入价格">
+                        </div>
+                        <div class="input-box">
+                            <label for="sales">销量</label>
+                            <input type="text" name="sales" id="sales" placeholder="销量">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">关闭
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                提交更改
+                            </button>
+                        </div>
+                    </form>
+
+                    按下 ESC 按钮退出。
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <h2 class="sub-header">商品列表：</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>商品</th>
+                <th>价格</th>
+                <th>库存</th>
+                <th>销量</th>
+            </tr>
+            </thead>
+            <tr>
+                {% for row in shopmod %}
+                    <th>{{ row.id }}</th>
+                    <th>{{ row.name }}</th>
+                    <th>{{ row.price }}</th>
+                    <th>{{ row.stock }}</th>
+                    <th>{{ row.sales }}</th>
+                    <td><a href="/shopmod/{{ row.id }}">删除</a></td>
+                    <tr>
+                {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        添加商品信息
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#update">
+                        修改商品信息
+                    </button>
+                </td>
+            </tr>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

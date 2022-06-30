@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<section>
+    <div class="box">
+        <h2>注册</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-box">
+                <label for="username">用户名</label>
+                <input type="text" name="username" id="username" placeholder="请输入用户名">
+            </div>
+            <div class="input-box">
+                <label for="password">密码</label>
+                <input type="password" name="password" id="password" placeholder="请输入密码">
+            </div>
+            <div class="input-box">
+                <label for="password">确认密码</label>
+                <input type="password" name="password" id="password" placeholder="请输入密码">
+            </div>
+            <div class="btn-box">
+                <div>
+                    <button type="submit">注册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
